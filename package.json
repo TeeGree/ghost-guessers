@@ -1,51 +1,27 @@
 {
   "name": "ghost-guessers",
-  "version": "0.1.0",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
     "dev-node": "tsx watch --tsconfig tsconfig.json src/server"
   },
   "dependencies": {
-    "core-js": "^3.8.3",
+    "@types/express": "^4.17.21",
+    "axios": "^1.6.5",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
-    "vue": "^3.2.13"
+    "vue": "^3.3.11"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@types/express": "^4.17.21",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.2",
-    "eslint-plugin-vue": "^8.0.3",
-    "prettier": "^3.1.1",
+    "@types/cors": "^2.8.17",
+    "@vitejs/plugin-vue": "^4.5.2",
     "tsx": "^4.7.0",
-    "typescript": "^5.3.3"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "@babel/eslint-parser"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead",
-    "not ie 11"
-  ]
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vue-tsc": "^1.8.25"
+  }
 }
