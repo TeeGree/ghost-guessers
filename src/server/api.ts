@@ -30,10 +30,12 @@ const getPeopleFromMongoDb = async () => {
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
 
-    const people = db.collection("people");
-    const query = { name: "Charlie Sheen" };
-    const person = await people.findOne(query);
-    console.log(person);
+    const peopleCollection = db.collection("people");
+    const people = await peopleCollection.find({});
+    const parsedPeople = await people.toArray();
+    console.log(parsedPeople);
+
+    return parsedPeople;
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
@@ -41,15 +43,13 @@ const getPeopleFromMongoDb = async () => {
 };
 
 // GET products list
-router.get("/products", (req, res) => {
-  console.log(`/api/products returned 0 product data`);
-
-  async function run() {
-    await getPeopleFromMongoDb();
-  }
-  run().catch(console.dir);
-
-  res.status(200).json("cool");
+router.get("/people", async (req, res) => {
+  console.log(`/api/people returned 0 product data`);
+  const run = async () => {
+    const people = await getPeopleFromMongoDb();
+    res.json(people);
+  };
+  return await run().catch(console.dir);
 });
 
 export default router;

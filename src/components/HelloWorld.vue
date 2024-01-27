@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { Ref, ref } from "vue";
+import { Person } from "../types/person";
 
 defineProps<{ msg: string }>();
 
 const count = ref(0);
+const people: Ref<Person[]> = ref([]);
 
 import { onMounted } from "vue";
-import { httpHandler } from "./httpHandler";
+import { getPeople } from "./httpHandler";
 
 onMounted(async () => {
-  const message = await httpHandler("/api/products");
+  const fetchedPeople = await getPeople();
+  people.value = fetchedPeople;
 
-  console.log(message);
+  console.log(people);
 });
 </script>
 
@@ -33,9 +36,10 @@ onMounted(async () => {
     >, the official Vue + Vite starter
   </p>
   <p>
-    Install
-    <a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
-    in your IDE for a better DX
+    People:
+    <li v-for="person in people">
+      {{ person.name }}
+    </li>
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
