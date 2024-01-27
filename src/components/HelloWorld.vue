@@ -6,16 +6,32 @@ defineProps<{ msg: string }>();
 
 const count = ref(0);
 const people: Ref<Person[]> = ref([]);
+const firstName = ref("");
+const lastName = ref("");
+const dateOfBirth = ref("");
 
 import { onMounted } from "vue";
-import { getPeople } from "./httpHandler";
+import { addPerson, getPeople } from "./httpHandler";
 
 onMounted(async () => {
-  const fetchedPeople = await getPeople();
-  people.value = fetchedPeople;
+  await fetchPeople();
 
   console.log(people);
 });
+
+const fetchPeople = async () => {
+  const fetchedPeople = await getPeople();
+  people.value = fetchedPeople;
+};
+
+const addPersonAndRefetch = async () => {
+  await addPerson({
+    name: `${firstName.value} ${lastName.value}`,
+    birthDate: dateOfBirth.value,
+  });
+
+  await fetchPeople();
+};
 </script>
 
 <template>
@@ -30,10 +46,20 @@ onMounted(async () => {
   </div>
 
   <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
+    Create new:
+    <label for="firstName">
+      <h2>First Name</h2>
+    </label>
+    <input type="text" v-model="firstName" />
+    <label for="lastName">
+      <h2>Last Name</h2>
+    </label>
+    <input type="text" v-model="lastName" />
+    <label for="dateOfBirth">
+      <h2>Date of Birth</h2>
+    </label>
+    <input type="text" v-model="dateOfBirth" />
+    <button type="button" @click="addPersonAndRefetch">Add</button>
   </p>
   <p>
     People:

@@ -1,5 +1,7 @@
+import { ObjectId } from "mongodb";
+
 export interface Person {
-  _id: string;
+  _id?: ObjectId | undefined;
   name: string;
   birthDate: string;
 }

@@ -4,6 +4,7 @@ import cors from "cors";
 
 const app = express();
 
+app.use(express.json());
 app.use(cors()); // enable CORS
 app.use("/", express.static("dist")); // file server for the frontend
 app.use("/api", service); // REST APIs
