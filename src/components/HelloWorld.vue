@@ -4,7 +4,6 @@ import { Person } from "../types/person";
 
 defineProps<{ msg: string }>();
 
-const count = ref(0);
 const people: Ref<Person[]> = ref([]);
 const firstName = ref("");
 const lastName = ref("");
@@ -36,14 +35,6 @@ const addPersonAndRefetch = async () => {
 
 <template>
   <h1>{{ msg }}</h1>
-
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
-  </div>
 
   <p>
     Create new:
