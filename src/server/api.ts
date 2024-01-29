@@ -75,17 +75,11 @@ router.get("/people", async (req, res) => {
 });
 
 router.post("/person", async (req, res) => {
-  const run = async () => {
-    console.log(req.body);
-    if (req.body) {
-      await addPersonToMongoDb(req.body);
-    }
-    console.log("added person");
-  };
-
-  await run().catch(console.dir);
+  if (req.body) {
+    await addPersonToMongoDb(req.body);
+  }
+  console.log("added person");
   res.status(200).json();
-  //return
 });
 
 export default router;

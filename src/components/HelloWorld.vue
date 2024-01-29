@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { Ref, ref } from "vue";
 import { Person } from "../types/person";
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
 
 defineProps<{ msg: string }>();
 
 const people: Ref<Person[]> = ref([]);
 const firstName = ref("");
 const lastName = ref("");
-const dateOfBirth = ref("");
+const dateOfBirth = ref();
 
 import { onMounted } from "vue";
 import { addPerson, getPeople } from "./httpHandler";
@@ -29,6 +31,10 @@ const addPersonAndRefetch = async () => {
     birthDate: dateOfBirth.value,
   });
 
+  firstName.value = "";
+  lastName.value = "";
+  dateOfBirth.value = undefined;
+
   await fetchPeople();
 };
 </script>
@@ -49,7 +55,11 @@ const addPersonAndRefetch = async () => {
     <label for="dateOfBirth">
       <h2>Date of Birth</h2>
     </label>
-    <input type="text" v-model="dateOfBirth" />
+    <VueDatePicker
+      v-model="dateOfBirth"
+      model-type="MM/dd/yyyy"
+      :hide-navigation="['time']"
+    />
     <button type="button" @click="addPersonAndRefetch">Add</button>
   </p>
   <p>
