@@ -12,7 +12,8 @@ const lastName = ref("");
 const dateOfBirth = ref();
 
 import { onMounted } from "vue";
-import { addPerson, getPeople } from "./httpHandler";
+import { addPerson, deletePerson, getPeople } from "./httpHandler";
+import { ObjectId } from "mongodb";
 
 onMounted(async () => {
   await fetchPeople();
@@ -34,6 +35,14 @@ const addPersonAndRefetch = async () => {
   firstName.value = "";
   lastName.value = "";
   dateOfBirth.value = undefined;
+
+  await fetchPeople();
+};
+
+const deletePersonAndRefetch = async (id?: ObjectId) => {
+  if (id === undefined) return;
+
+  await deletePerson(id);
 
   await fetchPeople();
 };
@@ -65,7 +74,10 @@ const addPersonAndRefetch = async () => {
   <p>
     People:
     <li v-for="person in people">
-      {{ person.name }}
+      {{ person.name
+      }}<button @click="() => deletePersonAndRefetch(person._id)">
+        Delete
+      </button>
     </li>
   </p>
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
